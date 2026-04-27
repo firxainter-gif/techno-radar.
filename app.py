@@ -1,65 +1,37 @@
 import streamlit as st
 import pandas as pd
-import streamlit.components.v1 as components
 
-# 1. DATABASE DEI CLUB (Nomi e link ai post IG più recenti/importanti)
+# 1. DATABASE CLUB
 def get_club_data():
     clubs = [
-        {
-            "Nome": "Amnesia Milano",
-            "Città": "Milano",
-            "IG_Post": "https://www.instagram.com/p/C6E7_I_I9Xy/", # Esempio di post
-            "lat": 45.4612, "lon": 9.2385
-        },
-        {
-            "Nome": "Spazio Novecento",
-            "Città": "Roma",
-            "IG_Post": "https://www.instagram.com/p/C58S-i_Is5t/",
-            "lat": 41.8285, "lon": 12.4735
-        },
-        {
-            "Nome": "Bolgia",
-            "Città": "Bergamo",
-            "IG_Post": "https://www.instagram.com/p/C6B9-i_Is5t/",
-            "lat": 45.6250, "lon": 9.5160
-        }
+        {"Nome": "Amnesia Milano", "Città": "Milano", "Link": "https://www.instagram.com/amnesiamilano/", "lat": 45.4612, "lon": 9.2385},
+        {"Nome": "Spazio Novecento", "Città": "Roma", "Link": "https://www.instagram.com/spazionovecento/", "lat": 41.8285, "lon": 12.4735},
+        {"Nome": "Bolgia", "Città": "Bergamo", "Link": "https://www.instagram.com/bolgia_official/", "lat": 45.6250, "lon": 9.5160},
+        {"Nome": "Duel Club", "Città": "Napoli", "Link": "https://www.instagram.com/duelclubofficial/", "lat": 40.8267, "lon": 14.1648}
     ]
     return pd.DataFrame(clubs)
 
-# 2. CONFIGURAZIONE APP
-st.set_page_config(page_title="Techno Radar Social", page_icon="📸", layout="wide")
+st.set_page_config(page_title="Techno Radar PRO", page_icon="🔊", layout="centered")
 
-st.title("📸 Techno Radar: Social Edition")
-st.markdown("Guarda gli ultimi annunci direttamente da Instagram")
+st.title("🔊 Techno Radar Italia")
+st.markdown("Seleziona un club per vedere la programmazione su Instagram")
 
 df_clubs = get_club_data()
 
-# --- MAPPA ---
-st.subheader("📍 Localizzazione Club")
+# Mappa
+st.subheader("📍 Mappa dei Club")
 st.map(df_clubs[['lat', 'lon']])
 
-# --- SEZIONE SOCIAL ---
-st.subheader("🔥 Ultime news dai Club")
+st.divider()
 
-col1, col2 = st.columns(2)
+# Lista Club con Bottoni
+st.subheader("🔥 Top Clubs & Events")
 
 for i, row in df_clubs.iterrows():
-    # Scegliamo in quale colonna mettere il post
-    target_col = col1 if i % 2 == 0 else col2
-    
-    with target_col:
-        st.write(f"### {row['Nome']} ({row['Città']})")
-        
-        # Codice per incorporare il post di Instagram
-        # Usiamo un iframe standard di Instagram
-        ig_url = row['IG_Post']
-        if ig_url.endswith('/'):
-            embed_url = ig_url + "embed"
-        else:
-            embed_url = ig_url + "/embed"
-            
-        components.iframe(embed_url, height=500)
-        st.markdown("---")
-
-st.sidebar.success("App connessa ai feed Social 🟢")
-
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.write(f"### {row['Nome']}")
+        st.write(f"📍 {row['Città']}")
+    with col2:
+        st.link_button("Vedi Eventi 📸", row['Link'])
+    st.divider()
