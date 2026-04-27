@@ -1,58 +1,65 @@
-
 import streamlit as st
 import pandas as pd
-import requests
-from bs4 import BeautifulSoup
+import streamlit.components.v1 as components
 
-# 1. IL "CERVELLO" (Lo Scraper per trovare eventi reali)
-def scrape_techno():
-    # URL di Shotgun Milano (uno dei siti più semplici per iniziare)
-    url = "https://shotgun.live/it/cities/milan" 
-    headers = {'User-Agent': 'Mozilla/5.0'}
+# 1. DATABASE DEI CLUB (Nomi e link ai post IG più recenti/importanti)
+def get_club_data():
+    clubs = [
+        {
+            "Nome": "Amnesia Milano",
+            "Città": "Milano",
+            "IG_Post": "https://www.instagram.com/p/C6E7_I_I9Xy/", # Esempio di post
+            "lat": 45.4612, "lon": 9.2385
+        },
+        {
+            "Nome": "Spazio Novecento",
+            "Città": "Roma",
+            "IG_Post": "https://www.instagram.com/p/C58S-i_Is5t/",
+            "lat": 41.8285, "lon": 12.4735
+        },
+        {
+            "Nome": "Bolgia",
+            "Città": "Bergamo",
+            "IG_Post": "https://www.instagram.com/p/C6B9-i_Is5t/",
+            "lat": 45.6250, "lon": 9.5160
+        }
+    ]
+    return pd.DataFrame(clubs)
+
+# 2. CONFIGURAZIONE APP
+st.set_page_config(page_title="Techno Radar Social", page_icon="📸", layout="wide")
+
+st.title("📸 Techno Radar: Social Edition")
+st.markdown("Guarda gli ultimi annunci direttamente da Instagram")
+
+df_clubs = get_club_data()
+
+# --- MAPPA ---
+st.subheader("📍 Localizzazione Club")
+st.map(df_clubs[['lat', 'lon']])
+
+# --- SEZIONE SOCIAL ---
+st.subheader("🔥 Ultime news dai Club")
+
+col1, col2 = st.columns(2)
+
+for i, row in df_clubs.iterrows():
+    # Scegliamo in quale colonna mettere il post
+    target_col = col1 if i % 2 == 0 else col2
     
-    try:
-        response = requests.get(url, headers=headers, timeout=10)
-        soup = BeautifulSoup(response.text, 'html.parser')
+    with target_col:
+        st.write(f"### {row['Nome']} ({row['Città']})")
         
-        eventi_reali = []
-        # Cerchiamo i titoli degli eventi (tag h3 su Shotgun)
-        for item in soup.find_all('h3')[:15]: 
-            nome_evento = item.text.strip()
-            if nome_evento:
-                eventi_reali.append({
-                    'Evento': nome_evento,
-                    'Città': 'Milano',
-                    'Genere': 'Techno / Electronic',
-                    'lat': 45.4642, 
-                    'lon': 9.1900
-                })
-        return pd.DataFrame(eventi_reali)
-    except Exception as e:
-        return pd.DataFrame([{'Evento': f'Errore: {e}', 'Città': 'Milano', 'Genere': 'N/A', 'lat': 45.46, 'lon': 9.19}])
-
-# 2. L'INTERFACCIA DELL'APP
-st.set_page_config(page_title="Techno Radar PRO", page_icon="🔊", layout="wide")
-
-st.title("🔊 Techno Radar Real-Time")
-st.markdown("Questa app scansiona automaticamente il web alla ricerca di eventi Techno.")
-
-# Pulsante per attivare lo scraper
-if st.button('🔄 AVVIA SCANSIONE WEB ORA'):
-    with st.spinner('Il bot sta setacciando i club... attendi...'):
-        df = scrape_techno()
-        
-        if not df.empty and 'Evento' in df.columns:
-            st.success(f'Trovati {len(df)} eventi potenziali!')
-            
-            # Mostra la mappa
-            st.subheader("📍 Mappa degli eventi")
-            st.map(df[['lat', 'lon']])
-            
-            # Mostra la lista
-            st.subheader("🗓️ Lista Eventi Trovati")
-            st.table(df[['Evento', 'Città', 'Genere']])
+        # Codice per incorporare il post di Instagram
+        # Usiamo un iframe standard di Instagram
+        ig_url = row['IG_Post']
+        if ig_url.endswith('/'):
+            embed_url = ig_url + "embed"
         else:
-            st.error("Il sito è protetto o non ci sono eventi al momento. Riprova più tardi.")
+            embed_url = ig_url + "/embed"
+            
+        components.iframe(embed_url, height=500)
+        st.markdown("---")
 
-st.sidebar.info("Bot Status: Online 🟢")
-st.sidebar.markdown("Scansione attiva su: **Shotgun.live**")
+st.sidebar.success("App connessa ai feed Social 🟢")
+
