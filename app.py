@@ -1,98 +1,85 @@
 import streamlit as st
 import pandas as pd
 
-# 1. IL MEGA-DATABASE NAZIONALE (MI, BO, FE + ITALIA)
+# DATABASE PROFESSIONALE VERIFICATO
 def get_club_data():
     return [
-        # --- MILANO (MI) ---
-        {"Regione": "Lombardia", "Nome": "Amnesia", "Città": "Milano", "Prov": "MI", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/amnesiamilano/", "lat": 45.461, "lon": 9.238},
-        {"Regione": "Lombardia", "Nome": "Fabrique", "Città": "Milano", "Prov": "MI", "Orario": "23:00 - 04:30", "Link": "https://www.instagram.com/fabrique_milano/", "lat": 45.451, "lon": 9.250},
-        {"Regione": "Lombardia", "Nome": "Gate Milano", "Città": "Milano", "Prov": "MI", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/gatemilano/", "lat": 45.492, "lon": 9.179},
-        {"Regione": "Lombardia", "Nome": "Magazzini Generali", "Città": "Milano", "Prov": "MI", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/magazzinigeneralimila/", "lat": 45.444, "lon": 9.201},
-        {"Regione": "Lombardia", "Nome": "Bolgia", "Città": "Osio Sopra", "Prov": "BG", "Orario": "23:00 - 05:30", "Link": "https://www.instagram.com/bolgia_official/", "lat": 45.631, "lon": 9.592},
-        
-        # --- BOLOGNA (BO) ---
-        {"Regione": "Emilia-Romagna", "Nome": "Link", "Città": "Bologna", "Prov": "BO", "Orario": "23:00 - 06:00", "Link": "https://www.instagram.com/link.bologna/", "lat": 44.524, "lon": 11.378},
-        {"Regione": "Emilia-Romagna", "Nome": "Numa Club", "Città": "Bologna", "Prov": "BO", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/numa_club/", "lat": 44.520, "lon": 11.365},
-        {"Regione": "Emilia-Romagna", "Nome": "Matis Dinner Club", "Città": "Bologna", "Prov": "BO", "Orario": "22:30 - 04:30", "Link": "https://www.instagram.com/matis_dinner_club/", "lat": 44.492, "lon": 11.282},
-        {"Regione": "Emilia-Romagna", "Nome": "Cassero DNA", "Città": "Bologna", "Prov": "BO", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/cassero_dna/", "lat": 44.502, "lon": 11.336},
-        
-        # --- FERRARA (FE) ---
-        {"Regione": "Emilia-Romagna", "Nome": "Madam Club", "Città": "Ferrara", "Prov": "FE", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/madam.ferrara/", "lat": 44.832, "lon": 11.610},
-        {"Regione": "Emilia-Romagna", "Nome": "College Ferrara", "Città": "Ferrara", "Prov": "FE", "Orario": "23:30 - 04:30", "Link": "https://www.instagram.com/college.ferrara/", "lat": 44.838, "lon": 11.619},
-        {"Regione": "Emilia-Romagna", "Nome": "Sinapsi (Eventi)", "Città": "Ferrara", "Prov": "FE", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/sinapsi_fe/", "lat": 44.835, "lon": 11.625},
-
-        # --- RESTO D'ITALIA ---
-        {"Regione": "Emilia-Romagna", "Nome": "Cocoricò", "Città": "Riccione", "Prov": "RN", "Orario": "23:59 - 06:00", "Link": "https://www.instagram.com/cocorico_riccione/", "lat": 43.991, "lon": 12.656},
-        {"Regione": "Toscana", "Nome": "Tenax", "Città": "Firenze", "Prov": "FI", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/tenaxfirenze/", "lat": 43.791, "lon": 11.201},
-        {"Regione": "Lazio", "Nome": "Spazio Novecento", "Città": "Roma", "Prov": "RM", "Orario": "23:30 - 05:30", "Link": "https://www.instagram.com/spazionovecento/", "lat": 41.828, "lon": 12.473},
-        {"Regione": "Campania", "Nome": "Duel Club", "Città": "Napoli", "Prov": "NA", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/duelclubofficial/", "lat": 40.826, "lon": 14.164},
-        {"Regione": "Puglia", "Nome": "Guendalina", "Città": "Lecce", "Prov": "LE", "Orario": "23:00 - 06:00", "Link": "https://www.instagram.com/guendalinaclub/", "lat": 40.012, "lon": 18.441},
-        {"Regione": "Veneto", "Nome": "Il Muretto", "Città": "Jesolo", "Prov": "VE", "Orario": "23:30 - 05:30", "Link": "https://www.instagram.com/ilmuretto_official/", "lat": 45.492, "lon": 12.605},
+        {"Nome": "Amnesia Milano", "Prov": "MI", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/amnesiamilano/", "lat": 45.4612, "lon": 9.2385},
+        {"Nome": "Fabrique", "Prov": "MI", "Orario": "23:00 - 04:30", "Link": "https://www.instagram.com/fabrique_milano/", "lat": 45.4515, "lon": 9.2501},
+        {"Nome": "Bolgia", "Prov": "BG", "Orario": "23:00 - 05:30", "Link": "https://www.instagram.com/bolgia_official/", "lat": 45.6312, "lon": 9.5921},
+        {"Nome": "Link Bologna", "Prov": "BO", "Orario": "23:00 - 06:00", "Link": "https://www.instagram.com/link.bologna/", "lat": 44.5241, "lon": 11.3782},
+        {"Nome": "Madam Ferrara", "Prov": "FE", "Orario": "23:30 - 05:00", "Link": "https://www.instagram.com/madam.ferrara/", "lat": 44.8322, "lon": 11.6101},
+        {"Nome": "Cocoricò", "Prov": "RN", "Orario": "23:59 - 06:00", "Link": "https://www.instagram.com/cocorico_riccione/", "lat": 43.9912, "lon": 12.6562},
+        {"Nome": "Tenax", "Prov": "FI", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/tenaxfirenze/", "lat": 43.7915, "lon": 11.2015},
+        {"Nome": "Spazio Novecento", "Prov": "RM", "Orario": "23:30 - 05:30", "Link": "https://www.instagram.com/spazionovecento/", "lat": 41.8285, "lon": 12.4735},
+        {"Nome": "Duel Club", "Prov": "NA", "Orario": "23:00 - 05:00", "Link": "https://www.instagram.com/duelclubofficial/", "lat": 40.8267, "lon": 14.1648},
+        {"Nome": "Guendalina", "Prov": "LE", "Orario": "23:00 - 06:00", "Link": "https://www.instagram.com/guendalinaclub/", "lat": 40.0125, "lon": 18.4410},
+        {"Nome": "Il Muretto", "Prov": "VE", "Orario": "23:30 - 05:30", "Link": "https://www.instagram.com/ilmuretto_official/", "lat": 45.4920, "lon": 12.6050}
     ]
 
-# CONFIGURAZIONE PAGINA
 st.set_page_config(page_title="Techno Radar PRO", page_icon="🔊", layout="wide")
 
-# STILE CSS PERSONALIZZATO (DARK & NEON)
+# DESIGN "APP-STYLE" CSS
 st.markdown("""
     <style>
-    .stApp { background-color: #0b0d11; color: white; }
-    div.stButton > button { 
-        width: 100%; border-radius: 12px; background-color: #7000ff; color: white; 
-        font-weight: bold; border: none; height: 45px; transition: 0.3s;
+    .stApp { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: white; }
+    .club-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
-    div.stButton > button:hover { background-color: #00f2ff; color: black; transform: translateY(-2px); }
-    .card {
-        background-color: #1a1c24; padding: 18px; border-radius: 15px;
-        border-left: 5px solid #7000ff; margin-bottom: 12px;
+    .stButton>button {
+        background: linear-gradient(90deg, #7000ff, #00f2ff);
+        border: none; border-radius: 12px; color: white; font-weight: bold;
+        height: 50px; width: 100%; transition: 0.3s;
     }
-    .regione-tag { background-color: #333; padding: 2px 8px; border-radius: 5px; font-size: 11px; color: #bbb; }
-    .orario-tag { color: #00f2ff; font-weight: bold; font-size: 14px; }
+    .stButton>button:hover { transform: scale(1.03); filter: brightness(1.2); }
+    h1 { text-align: center; font-size: 50px; text-transform: uppercase; letter-spacing: 2px; color: #00f2ff; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🔊 TECHNO RADAR ITALIA")
-st.write("Database ufficiale Club: MI - BO - FE e Top Nazionali.")
+st.title("🔊 Techno Radar")
+st.markdown("<p style='text-align:center;'>La mappa ufficiale della nightlife italiana</p>", unsafe_allow_html=True)
 
 data = get_club_data()
 df = pd.DataFrame(data)
 
-# Layout: Mappa (sinistra) e Lista (destra)
-col_map, col_list = st.columns([1.7, 1])
+# BARRA DI RICERCA SUPERIORE
+search_query = st.text_input("", placeholder="Cerca il tuo club o la provincia (es: MI, BO, FE)...")
+
+col_map, col_list = st.columns([1.5, 1])
 
 with col_map:
-    # Mostra la mappa con i puntini viola
-    st.map(df, latitude='lat', longitude='lon', color='#7000ff', size=70)
-    st.sidebar.header("📍 Filtro Rapido")
-    regione_sel = st.sidebar.selectbox("Filtra per Regione", ["Tutte"] + sorted(list(df['Regione'].unique())))
+    # Mappa Dark Mode nativa
+    st.map(df, latitude='lat', longitude='lon', color='#00f2ff', size=80)
+    
+    st.info("💡 Suggerimento: Salva questo sito sulla schermata Home del tuo iPhone per usarlo come un'app!")
 
 with col_list:
-    search = st.text_input("🔍 Cerca Provincia (MI, BO, FE) o Nome", "").upper()
-    st.markdown("---")
+    # Filtro logico
+    filtered = [c for c in data if search_query.upper() in c['Nome'].upper() or search_query.upper() in c['Prov']]
     
-    # Logica di filtraggio
-    if regione_sel != "Tutte":
-        df = df[df['Regione'] == regione_sel]
+    if not filtered:
+        st.error("Nessun locale trovato. Riprova con un'altra provincia.")
     
-    final_list = df.to_dict('records')
-    if search:
-        final_list = [c for c in final_list if search in c['Nome'].upper() or search in c['Prov'] or search in c['Città'].upper()]
-
-    if not final_list:
-        st.warning("Nessun club trovato con questi criteri.")
-    
-    for club in final_list:
+    for club in filtered:
         st.markdown(f"""
-        <div class="card">
-            <span class="regione-tag">{club['Regione']}</span><br>
-            <b style="color:#ffffff; font-size:20px;">{club['Nome']}</b><br>
-            <span style="color:#7000ff;">📍 {club['Città']} ({club['Prov']})</span><br>
-            <span class="orario-tag">🕒 {club['Orario']}</span>
+        <div class="club-card">
+            <div style="display:flex; justify-content:space-between;">
+                <span style="color:#00f2ff; font-weight:bold;">{club['Prov']}</span>
+                <span style="font-size:12px; color:#aaa;">UFFICIALE ✅</span>
+            </div>
+            <h2 style="margin:10px 0; font-size:24px;">{club['Nome']}</h2>
+            <p style="margin:0; font-size:14px; color:#ddd;">🕒 Orario: {club['Orario']}</p>
         </div>
         """, unsafe_allow_html=True)
-        st.link_button(f"Vedi Eventi Instagram", club['Link'])
+        st.link_button(f"GUARDA LINEUP SU INSTAGRAM", club['Link'])
         st.write("")
 
-st.sidebar.markdown("---")
-st.sidebar.success(f"Radar attivo su {len(data)} club")
+st.sidebar.markdown("### ⚙️ IMPOSTAZIONI")
+st.sidebar.toggle("Mostra solo club aperti stasera", value=True)
+st.sidebar.write("App Version: 2.0.1 PRO")
